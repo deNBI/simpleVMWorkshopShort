@@ -25,7 +25,7 @@ You start this tutorial from your profile page (https://simplevm.denbi.de).
 1. Click on the `New Instance` tab.
 
 2. If you are already member of a SimpleVM project then you are offered a drop down menu to select
-a project. In this case please select the **SimpleVMTest1** project. If this is
+a project. In this case please select the **esciencedays2021** project. If this is
 your first SimpleVM project, you are now able to select/generate a key (next point) or directly start a VM.
 
 3. If you have no SSH key set so far, just click on generate key and save the
@@ -39,7 +39,7 @@ SSH keys: https://cloud.denbi.de/wiki/portal/user_information/#ssh-key
 1. Choose a name for your VM.
 2. Select **de.NBI small**.
 3. In the image section, please click on the *Research Environments* tab 
-   and select the **Visual Sudio Code** image based on **Ubuntu 24.04**.
+   and select the **Guacamole** image based on **Ubuntu 24.04**.
    ![](./figures/resenv.png)
 4. Select the Conda tab and choose the following tools with their version numbers given below for installation via Conda:
    * parallel (20220922)
@@ -50,12 +50,13 @@ SSH keys: https://cloud.denbi.de/wiki/portal/user_information/#ssh-key
    
    You will learn in the next sections how to apply these tools.
 
-5. Optional: Modify the URL path for VSCode. You will access VSCode via this URL.
-   ![](./figures/resenv_url.png)
-6. Grant access to the workshop organizers (Peter Belmann, Sebastian Jünemann).
+5. Grant access to the workshop organizers (Sebastian Jünemann).
    This way these members get ssh access to your VM and can help you in case
    something does not work as expected.
    ![](./figures/additional_users.png)
+
+6. Optional: Modify the URL path for Guacamole. You will access this VM via this URL.
+   ![](./figures/resenv_url.png)
 7. Confirm the checkboxes and click on Start.
 
 Next to [Section 2](part2.md)
