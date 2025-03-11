@@ -17,10 +17,11 @@ Log in to the VM and verify that SimpleVM provisioned the VM correctly.
    `denbi`
    `denbi`
    ![](figures/vm_login.png)
+
    And choose the correct keyboard layout for you.
 3. Right click on background and select `Open Terminal Here`.
    ![](figures/open_terminal.png)
-5. Inspect the VM before starting to work with it. Let's check whether the VM
+4. Inspect the VM before starting to work with it. Let's check whether the VM
    has the properties that SimpleVM promised you by typing the following commands
    in your newly opened terminal window.
    `nproc` tells you the number of processing units.
@@ -48,8 +49,7 @@ Log in to the VM and verify that SimpleVM provisioned the VM correctly.
 
    * `mash -h`
    * `parallel -h`
-   * `csvtk -h`
-   
+      
    If there is an error reported, then something went wrong, and we have to either
    repeat the conda installation manually or install it a different way.
 
