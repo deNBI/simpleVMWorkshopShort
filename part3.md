@@ -251,5 +251,27 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
    csvtk -t plot box -H -g 7 -f 3 output.tsv --horiz -o output_box.png
    ```
+   ```
+   # Import necessary libraries
+   import pandas as pd
+   import matplotlib.pyplot as plt
+   
+   # Define the column headers
+   column_headers = ['identity', 'shared-hashes', 'median-multiplicity', 'p-value', 'query-ID', 'query-comment']
+   
+   # Load the TSV file into a DataFrame with header information
+   df = pd.read_csv('output.tsv', sep='\t', names=column_headers)
+   
+   # Sort and filter the data
+   df_sorted = df.sort_values(by='shared-hashes', ascending=False)
+   df_filtered = df_sorted[df_sorted['shared-hashes'] > 0.8]
+   
+   # Plot a histogram of the 'shared-hashes' column
+   plt.hist(df_filtered['shared-hashes'], bins=50, alpha=0.7, color='blue', edgecolor='black')
+   plt.title('Histogram of Shared Hashes (Filtered)')
+   plt.xlabel('Shared Hashes Value')
+   plt.ylabel('Frequency')
+   plt.show()
+   ```
    
 Back to [Section 2](part2.md) 
