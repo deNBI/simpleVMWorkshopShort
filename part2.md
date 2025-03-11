@@ -11,7 +11,7 @@ you start with your analysis in the next section.
 Log in to the VM and verify that SimpleVM provisioned the VM correctly.
 
 1. After you have initiated the start-up of the machine, you should have been automatically redirected to the **Instance Overview** page. Now click on the dropdown of your machine. 
-   Click on the VSCode URL which opens a new browser tab.
+   Click on the Guacamole URL which opens a new browser tab.
    ![](figures/vscode.png)
 2. Click on the sandwich button in the upper left menu and select `Terminal` and `New Terminal`.
    ![](figures/terminal.png)
