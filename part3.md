@@ -137,7 +137,7 @@ its source as possible, reducing the need for expensive data movement. For this 
 site holds a mirror of all metagenomic data of the SRA that we will use now.
    
 1. Click on `Terminal` in the upper menu and select `New Terminal`.
-   ![](figures/terminal.png)
+   ![](figures/open_terminal.png)
 
 2. Activate the conda environment by running:
    ```   
