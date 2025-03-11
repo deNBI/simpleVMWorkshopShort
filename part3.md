@@ -165,7 +165,7 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
 7. We created a file that points to metagenomic datasets that you have found in the previous chapter.
    Download the input file via:
    ```
-   wget [https://openstack.cebitec.uni-bielefeld.de:8080/simplevm-workshop/reads.tsv](https://github.com/deNBI/simpleVMWorkshopShort/blob/EscienceDays2025/reads.tsv)
+   wget https://github.com/deNBI/simpleVMWorkshopShort/blob/EscienceDays2025/reads.tsv
    ```
    You can inspect the file by using `cat`:
    ```
@@ -211,7 +211,7 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
    We can run this function now on the dat sets that are defined in the reads.tsv list in parallel:
    ```
-   parallel -a reads.tsv search
+   cat reads.tsv | parallel search
    ```
    where
      * `reads.tsv` is a list of datasets that we want to scan.
@@ -235,6 +235,12 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
 2. Then navigate to the colume overview, select your volume and detach it, by selecting the yellow detach button.
   ![](figures/detach_volume.png)
 
+3. Next we creat a new instance, as previously, using the **de.NBI small** flavor, but this time using the **Jupyter Lab** research environment.
+   Now, we can directly attach the previously detached volume upon instance creation:
+   ![](figures/attach_volume.png)
+
+   This time, we don't need any additional conda packages, so you can start the instance right away.
+   
 7. Let's plot how many matched k-mer hashes we have found (from 0 to 1000):
    ```
    csvtk -t plot hist -H -f 3 output.tsv -o output.png
