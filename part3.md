@@ -35,6 +35,19 @@ datasets via object storage.
    cd /mnt/volume
    conda activate denbi
    ```
+   Additionally, we will install a small helper tool to access S3 storage directly:
+   ```
+   wget https://dl.min.io/client/mc/release/linux-amd64/mc
+   ```
+   Move it to a folder where other binaries usually are stored:
+   ```
+   sudo mv mc /usr/local/bin/
+   ```
+   Change file permissions:
+   ```
+   chmod a+x /usr/local/bin/mc
+   ```
+   
 ### 3.1 Public available data
 
 In our use case, we want to search for some pathogenic factors in metagenomic data.
@@ -89,27 +102,18 @@ some cloud object storage, for instance at the AWS cloud by Amazon.
    Unfortunately, conda does not offer a minio cli binary, which means that we would have to install it manually.
    Download the binary:
    ```
-   cd /mnt/volume
-   wget https://dl.min.io/client/mc/release/linux-amd64/mc
+   cd /mnt/volume   
    ```
-   Move it to a folder where other binaries usually are stored:
-   ```
-   sudo mv mc /usr/local/bin/
-   ```
-   Change file permissions:
-   ```
-   chmod a+x /usr/local/bin/mc
-   ```
-5. Next we need to tell minio where the AWS cloud storage can be accessed and what
+4. Next we need to tell minio where the AWS cloud storage can be accessed and what
    the access key and secret is.
    ```
    mc config host add aws https://s3.amazonaws.com "" ""
    ```
-6. Let's see if we can find our data that we used previously:
+5. Let's see if we can find our data that we used previously:
    ```
    mc ls --summarize aws/sra-pub-run-odp/sra/SRR24962458
    ```
-7. Now lets do the same analysis as before but this time using the AWS SRA mirror. First
+6. Now lets do the same analysis as before but this time using the AWS SRA mirror. First
    we prepare a folder:
    ```
    cd /mnt/volume
