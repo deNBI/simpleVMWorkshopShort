@@ -44,9 +44,8 @@ SSH keys: https://cloud.denbi.de/wiki/portal/user_information/#ssh-key
 4. Select the Conda tab and choose the following tools with their version numbers given below for installation via Conda:
    * parallel (20220922)
    * sra-tools (3.1.1)
-   * mash (2.2)
-   * csvtk (0.9.1)
-   ![](./figures/packages.png)
+   * mash (2.2)   
+   ![](./figures/conda.png)
    
    You will learn in the next sections how to apply these tools.
 
