@@ -45,10 +45,10 @@ datasets via object storage.
    ```
    Change file permissions:
    ```
-   chmod a+x /usr/local/bin/mc
+   sudo chmod a+x /usr/local/bin/mc
    ```
    
-### 3.1 Public available data
+### 3.2 Public available data
 
 In our use case, we want to search for some pathogenic factors in metagenomic data.
 Metagenomic data is public available e.g. in the Short Read Archive (SRA) hosted by the
@@ -86,7 +86,7 @@ type of experiment.
    ```
    mash screen -p 12 genomes.msh SRR24962458.fastq
    ```   
-### 3.2 Cloud enabled data
+### 3.3 Cloud enabled data
 Using FTP for file transfer is not the ideal choice, as it lacks features such as encryption, compression,
 and error checking, making it slower and less secure than alternative protocols. In cloud environments,
 the S3 protocol has become a de facto standard because it offers high-performance, secure, and reliable object
@@ -129,7 +129,7 @@ some cloud object storage, for instance at the AWS cloud by Amazon.
    fasterq-dump -Z --skip-technical --concatenate-reads SRR24962458 | mash screen -p 12 ../genomes.msh -
    ```
 
-### 3.2 Make the analysis where the data is located
+### 3.4 Make the analysis where the data is located
 
 For operating on large datasets, accessing remote storage can be a bottle neck. For this reason, one of the cloud 
 paradigms is called Data Gravity: The idea that data is a massive attractor and should be processed as close to
@@ -153,20 +153,19 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
    mc ls sra/ftp.era.ebi.ac.uk/vol1/fastq/SRR398/008/SRR3984908
    ```
-
-5. Check the size of these files
+   
+5. We will also download a sequence information of known pathogens. We created a mash index out of selected genomes
+   that were classified as  "greatest threat to human health" by the World Health Organisation (WHO) in 2017:
+   https://www.who.int/news/item/27-02-2017-who-publishes-list-of-bacteria-for-which-new-antibiotics-are-urgently-needed 
+   Please download the index:
    ```
-   mc du sra/ftp.era.ebi.ac.uk/vol1/fastq/SRR398/008/SRR3984908
+   wget https://openstack.cebitec.uni-bielefeld.de:8080/simplevm-workshop/genomes.msh
    ```
-
-6. You can read the first lines of these files by using `mc cat`.
-   ```
-   mc cat sra/ftp.era.ebi.ac.uk/vol1/fastq/SRR398/008/SRR3984908/SRR3984908_1.fastq.gz | zcat | head
-   ```
+   
 7. We created a file that points to metagenomic datasets that you have found in the previous chapter.
    Download the input file via:
    ```
-   wget https://openstack.cebitec.uni-bielefeld.de:8080/simplevm-workshop/reads.tsv
+   wget [https://openstack.cebitec.uni-bielefeld.de:8080/simplevm-workshop/reads.tsv](https://github.com/deNBI/simpleVMWorkshopShort/blob/EscienceDays2025/reads.tsv)
    ```
    You can inspect the file by using `cat`:
    ```
@@ -226,6 +225,16 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
    cat output/*.txt > output.tsv
    ```
+
+### 3.5 Start a Jupyer Lab and plot the data
+
+1. First we unmount and detach the volume. To unmount, type:
+   ```
+   sudo umount /mnt/volume
+   ```
+2. Then navigate to the colume overview, select your volume and detach it, by selecting the yellow detach button.
+  ![](figures/detach_volume.png)
+
 7. Let's plot how many matched k-mer hashes we have found (from 0 to 1000):
    ```
    csvtk -t plot hist -H -f 3 output.tsv -o output.png
