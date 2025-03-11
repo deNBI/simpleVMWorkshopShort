@@ -37,7 +37,7 @@ SSH keys: https://cloud.denbi.de/wiki/portal/user_information/#ssh-key
 ### 1.3 Start a VM
 
 1. Choose a name for your VM.
-2. Select **de.NBI medium**.
+2. Select **de.NBI small**.
 3. In the image section, please click on the *Research Environments* tab 
    and select the **Visual Sudio Code** image based on **Ubuntu 24.04**.
    ![](./figures/resenv.png)
