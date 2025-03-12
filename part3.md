@@ -268,8 +268,8 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    sudo mkdir -p /vol/data
    sudo chown ubuntu:ubuntu /vol/data
    cd /vol/data
-   
-   
+   wget https://raw.githubusercontent.com/deNBI/simpleVMWorkshopShort/EscienceDays2025/output.tsv
+   ``` 
   
    The first cell to import the necessary python libraries into the kernel:
    ```   
