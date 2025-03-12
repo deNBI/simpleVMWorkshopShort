@@ -301,11 +301,10 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    plt.ylabel('Reference')
    plt.title('Number of Shared Hashes per Pathogen')
    plt.tight_layout()
-   plt.savefig('output_box.png')
-   
    plt.show()
    ```
-
+   In the end, it should look like this:
+   ![](figures/jupyter_final.png)
 
    
    
