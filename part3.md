@@ -262,6 +262,14 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
 6. Now we can create a new notebook and plot the results from the previous mash analysis. In the main menu bar, select **File**, **New**, **Notenook**, and the **Python 3 (ipykernel)**
    
 7. We will add the following code blocks as cells in the notebook, so we can run and rerun them individually.
+
+   In case, you have no mash results to work with, you can download a pre-calculated mash results file using the following command:
+   ```
+   sudo mkdir -p /vol/data
+   sudo chown ubuntu:ubuntu /vol/data
+   cd /vol/data
+   
+   
   
    The first cell to import the necessary python libraries into the kernel:
    ```   
