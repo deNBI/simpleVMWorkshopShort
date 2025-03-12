@@ -165,7 +165,7 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
 7. We created a file that points to metagenomic datasets that you have found in the previous chapter.
    Download the input file via:
    ```
-   wget https://github.com/deNBI/simpleVMWorkshopShort/blob/EscienceDays2025/reads.tsv
+   wget https://raw.githubusercontent.com/deNBI/simpleVMWorkshopShort/EscienceDays2025/reads.tsv
    ```
    You can inspect the file by using `cat`:
    ```
@@ -228,20 +228,40 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
 
 ### 3.5 Start a Jupyer Lab and plot the data
 
-1. First we unmount and detach the volume. To unmount, type:
+1. First we unmount the volume in our Guacamole instance and detach the volume. To unmount, type:
    ```
    sudo umount /mnt/volume
    ```
-2. Then navigate to the colume overview, select your volume and detach it, by selecting the yellow detach button.
+2. Then navigate to SimpleVM dashboard to the volume overview, select your volume and detach it, by selecting the yellow detach button.
   ![](figures/detach_volume.png)
 
 3. Next we creat a new instance, as previously, using the **de.NBI small** flavor, but this time using the **Jupyter Lab** research environment.
-   Now, we can directly attach the previously detached volume upon instance creation:
+   Now, we can directly attach the previously detached volume upon instance creation. The mountpoint should be **/vol/data**:
    ![](figures/attach_volume.png)
 
    This time, we don't need any additional conda packages, so you can start the instance right away.
    
-7. Let's plot how many matched k-mer hashes we have found (from 0 to 1000):
+4. Navigate to the instance overview, find your newly created JupyterLab instace, open the drop down menu and follow the URL.
+   In the login page, enter **simplevm** as the access token:
+   ![](figures/jupyter_login.png)
+
+5. The JupyerLab environment offers you to launch new notbooks, consoles and other editors. Let's open a **Terminal**, check if the volume has mounted correctly and install some additional python packages:
+   ![](figures/jupyter_terminal.png)
+
+   Check the volume:
+   ```
+   lsblk
+   ll /vol/data
+   ```
+   Install additional python packages:
+   ```
+   conda activate denbi
+   pip install panda
+   pip install matplotlib
+   ```
+6. Now we can create a new notebook and plot the results from the previous mash analysis. In the main menu bar, select **File**, **New**, **Notenook**, and the **Python 3 (ipykernel)**
+   
+7. Add the following code blocks as cells in the notebook:
    ```
    csvtk -t plot hist -H -f 3 output.tsv -o output.png
    ```
@@ -251,21 +271,22 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
    csvtk -t plot box -H -g 7 -f 3 output.tsv --horiz -o output_box.png
    ```
-   ```
+   The first cell to import the necessary python libraries into the kernel:
+   ```   
    # Import necessary libraries
    import pandas as pd
    import matplotlib.pyplot as plt
-   
+   ```
+
+   The second cell to oad the data:
+   ```
    # Define the column headers
-   column_headers = ['identity', 'shared-hashes', 'median-multiplicity', 'p-value', 'query-ID', 'query-comment']
-   
+   column_headers = ['identity', 'shared-hashes', 'median-multiplicity', 'p-value', 'query-ID', 'query-comment']   
    # Load the TSV file into a DataFrame with header information
    df = pd.read_csv('output.tsv', sep='\t', names=column_headers)
-   
-   # Sort and filter the data
-   df_sorted = df.sort_values(by='shared-hashes', ascending=False)
-   df_filtered = df_sorted[df_sorted['shared-hashes'] > 0.8]
-   
+   ```
+   The third cell to plot how many matched k-mer hashes we have found (from 0 to 1000):
+   ```
    # Plot a histogram of the 'shared-hashes' column
    plt.hist(df_filtered['shared-hashes'], bins=50, alpha=0.7, color='blue', edgecolor='black')
    plt.title('Histogram of Shared Hashes (Filtered)')
@@ -273,5 +294,11 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    plt.ylabel('Frequency')
    plt.show()
    ```
+
+   
+   # Sort and filter the data
+   df_sorted = df.sort_values(by='shared-hashes', ascending=False)
+   df_filtered = df_sorted[df_sorted['shared-hashes'] > 0.8]
+   
    
 Back to [Section 2](part2.md) 
