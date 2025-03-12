@@ -261,16 +261,8 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    ```
 6. Now we can create a new notebook and plot the results from the previous mash analysis. In the main menu bar, select **File**, **New**, **Notenook**, and the **Python 3 (ipykernel)**
    
-7. Add the following code blocks as cells in the notebook:
-   ```
-   csvtk -t plot hist -H -f 3 output.tsv -o output.png
-   ```
-   You can open this file by a click on the Explorer View and selecting the pdf.
-
-   We can also plot the number of found hashes for each of the found pathogens:
-   ```
-   csvtk -t plot box -H -g 7 -f 3 output.tsv --horiz -o output_box.png
-   ```
+7. We will add the following code blocks as cells in the notebook, so we can run and rerun them individually.
+  
    The first cell to import the necessary python libraries into the kernel:
    ```   
    # Import necessary libraries
@@ -281,24 +273,40 @@ site holds a mirror of all metagenomic data of the SRA that we will use now.
    The second cell to oad the data:
    ```
    # Define the column headers
-   column_headers = ['identity', 'shared-hashes', 'median-multiplicity', 'p-value', 'query-ID', 'query-comment']   
+   column_headers = ['query-ID', 'identity', 'shared-hashes', 'hashed', 'median-multiplicity', 'p-value', 'query-comment']   
    # Load the TSV file into a DataFrame with header information
-   df = pd.read_csv('output.tsv', sep='\t', names=column_headers)
+   df = pd.read_csv('/vol/data/output.tsv', sep='\t', names=column_headers, header=None, usecols=range(0,7))
    ```
    The third cell to plot how many matched k-mer hashes we have found (from 0 to 1000):
    ```
    # Plot a histogram of the 'shared-hashes' column
-   plt.hist(df_filtered['shared-hashes'], bins=50, alpha=0.7, color='blue', edgecolor='black')
+   plt.hist(df['shared-hashes'], bins=50, alpha=0.7, color='blue', edgecolor='black')
    plt.title('Histogram of Shared Hashes (Filtered)')
    plt.xlabel('Shared Hashes Value')
    plt.ylabel('Frequency')
    plt.show()
    ```
-
-   
+   Finally, we sort and filter the data to only consider matches with an identity of at least 90%:
+   ```
    # Sort and filter the data
    df_sorted = df.sort_values(by='shared-hashes', ascending=False)
-   df_filtered = df_sorted[df_sorted['shared-hashes'] > 0.8]
+   df_filtered = df_sorted[df_sorted['identity'] > 0.9]
+   ```
+   And plot:
+   ```
+   # Plot a horizontal box plot
+   plt.figure(figsize=(10, 6))
+   df_filtered.boxplot(vert=False, column='shared-hashes', by='query-comment')
+   plt.xlabel('Shared Hashes')
+   plt.ylabel('Reference')
+   plt.title('Number of Shared Hashes per Pathogen')
+   plt.tight_layout()
+   plt.savefig('output_box.png')
+   
+   plt.show()
+   ```
+
+
    
    
 Back to [Section 2](part2.md) 
